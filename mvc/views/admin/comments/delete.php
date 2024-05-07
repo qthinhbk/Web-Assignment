@@ -1,5 +1,5 @@
 <?php
-Utils\redirect_when_not_being_admin();
+Utils\redirect_if_not_being_admin();
 if (isset($data["pid"])) {
     $pid = $data["pid"];
     $cid = $data["cid"];

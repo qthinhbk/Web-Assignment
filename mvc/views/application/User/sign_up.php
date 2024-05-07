@@ -1,43 +1,39 @@
 <?php
-
-if (isset($_SESSION["email"]) && $_SESSION["role"] == "admin") {
-    echo '<script type = "text/javascript">
-            window.location.href = "<?php echo Utils\BASE_URL ?>/category/index"</script>';
+if (isset($_SESSION["_token"])) {
+    if (!Utils\jwt_verify($_SESSION["_token"])) {
+        header("Location: " . Utils\BASE_URL . "/user/log_out");
+        exit();
+    }
+    $claims = Utils\jwt_get_claims($_SESSION["_token"]);
+    if ($claims["role"] == "admin") {
+        header("Location: " . Utils\BASE_URL . "/category/index");
+    } else {
+        header("Location: " . Utils\BASE_URL . "/");
+    }
+    exit();
 }
-
-if (isset($_SESSION["email"]) && $_SESSION["role"] == "customer") {
-    echo '<script type = "text/javascript">
-    window.location.href = "<?php echo Utils\BASE_URL ?>/"</script>';
-}
-
-if (isset($_POST['submit'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'];
     $password = $_POST['password'];
     $name = $_POST['name'];
     $phone = $_POST['phone'];
-
-    $key = "";
-    for ($i = 0; $i < strlen($email); $i++) {
-        if ($email[$i] == "@") {
-            break;
-        } else {
-            $key .= (string)(ord($email[$i]) - 48);
-        }
+    $user_model = null;
+    if (isset($data)) {
+        /**
+         * @var UserModel $user_model
+         */
+        $user_model = $data["user_model"];
     }
+    if ($user_model->add_user([
+        "name" => $name,
+        "email" => $email,
+        "phone" => $phone,
+        "password" => $password
+    ])) {
+        Utils\redirect_with_message(Utils\BASE_URL . "/user/sign_in", "Tạo tài khoản thành công!");
 
-    $id = (int)$key % 100000000;
-    $user = "INSERT INTO user (user_id, user_name, email, phone, password, role) VALUES (N'$id', N'$name', N'$email',N'$phone', N'$password', 1 )";
-
-    if (($data["userModal"]->con)->query($user)) {
-        echo "<script type='text/javascript'>
-            alert('Tạo tài khoản thành công!');
-            window.location.href = '<?php echo Utils\BASE_URL ?>/user/sign_in';
-        </script>";
     } else {
-        echo "<script type='text/javascript'>
-            alert('Tạo tài khoản thất bại!');
-            window.location.href = '<?php echo Utils\BASE_URL ?>/user/sign_in';
-        </script>";
+        Utils\redirect_with_message(Utils\BASE_URL . "/user/sign_in", "Tạo tài khoản thất bại!");
     }
 }
 ?>
@@ -45,7 +41,7 @@ if (isset($_POST['submit'])) {
     body {
         height: 100vh;
         width: 100vw;
-        background: center / cover no-repeat url("../../../as232/public/assets/img/background.png");
+        background: center / cover no-repeat url("<?php echo Utils\BASE_URL ?>/public/assets/img/background.png");
         overflow: hidden;
         display: flex;
         justify-content: center;
@@ -60,7 +56,7 @@ if (isset($_POST['submit'])) {
     .signup-form,
     .login-form {
         width: 500px;
-        box-shadow: 0px 0 30px 5px rgb(0 0 0 / 30%);
+        box-shadow: 0 0 30px 5px rgb(0 0 0 / 30%);
         padding: 12px 36px;
         border-radius: 4px;
         background-color: #fff;
@@ -106,11 +102,6 @@ if (isset($_POST['submit'])) {
     }
 
 
-    .forgot {
-        margin-top: 12px;
-        text-align: right;
-    }
-
     .forgotPass {
         background: none;
         border: none;
@@ -119,15 +110,6 @@ if (isset($_POST['submit'])) {
     }
 
 
-    .google-btn {
-        background-color: white;
-        width: 100%;
-        color: black;
-        box-shadow: 0px 0px 2px rgb(0 0 0 / 25%);
-        height: 45px;
-        padding: 4px 32px;
-    }
-
     .google-btn img {
         padding-bottom: 1px;
         width: 9%;
@@ -135,11 +117,6 @@ if (isset($_POST['submit'])) {
 
     .google-btn span {
         line-height: 37px;
-    }
-
-    .google-btn .img-container {
-        width: 50px;
-        margin: 0;
     }
 
     .forgotPass {
@@ -159,7 +136,7 @@ if (isset($_POST['submit'])) {
     <form name="signup" class="form-style" method="POST" action="">
         <div class="form-logo">
             <a href="<?php echo Utils\BASE_URL ?>/user/sign_in">
-                <img src="../../../as232/public/assets/img/Bach-Hoa-Xanh-Logo.png" alt="logo">
+                <img src="<?php echo Utils\BASE_URL ?>/public/assets/img/Bach-Hoa-Xanh-Logo.png" alt="logo">
             </a>
         </div>
 
@@ -176,7 +153,7 @@ if (isset($_POST['submit'])) {
         <input type="password" name="password" placeholder="Nhập mật khẩu" id="password" class="form-control" required>
         <br>
 
-        <input type="submit" name="submit" value="Đăng ký tài khoản" class="btn login-btn btn-bg">
+        <input type="submit" value="Đăng ký tài khoản" class="btn login-btn btn-bg">
 
         <div class="footer-wrapper">
             <span>Đã có tài khoản?</span>

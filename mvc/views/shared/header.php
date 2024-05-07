@@ -5,10 +5,10 @@
                 <div class="uk-navbar-left">
                     <a href="<?php echo Utils\BASE_URL ?>/home/index">
                         <img class="logo__img logo__img--full"
-                             src="../../../as232/public/assets/img/Bach-Hoa-Xanh-Logo.png" alt="logo">
+                             src="<?php echo Utils\BASE_URL ?>/public/assets/img/Bach-Hoa-Xanh-Logo.png"
+                             alt="logo">
                     </a>
                 </div>
-
                 <div class="uk-navbar-center">
                     <ul class="uk-navbar-nav">
                         <li>
@@ -33,7 +33,6 @@
                         </li>
                     </ul>
                 </div>
-
                 <div class="uk-navbar-right">
                     <div class="other-links">
                         <ul class="other-links-list">
@@ -47,7 +46,8 @@
                                         href="$redirect_url"
                                         class="nav-btn"
                                     >
-
+                                        Đăng nhập
+                                    </a>
                                     HTML;
                                 }
                                 ?>
@@ -102,18 +102,37 @@
                         <ul class="other-links-list">
                             <li>
                                 <?php
-                                if (isset($_SESSION['name'])) {
-
-                                } else {
-                                    echo "<a style='color: white; font-weight: bold' href='<?php echo Utils\BASE_URL ?>/User/sign_in' class='nav-btn'>Đăng nhập</a>";
+                                if (!isset($_SESSION['_token'])) {
+                                    $redirect_url = Utils\BASE_URL . '/User/sign_in';
+                                    echo <<<HTML
+                                    <a
+                                        style="color: white; font-size: 16px; text-decoration: none; "
+                                        href="$redirect_url"
+                                        class="nav-btn"
+                                    >
+                                        Đăng nhập
+                                    </a>
+                                    HTML;
                                 }
                                 ?>
                             </li>
 
                             <?php
-                            if (isset($_SESSION['id'])) {
-                                echo "<li><a href='<?php echo Utils\BASE_URL ?>/home/account'><span class='text-white' data-uk-icon='user'></span></a></li>
-                                  <li><a href='<?php echo Utils\BASE_URL ?>/User/log_out'><span class='text-white' data-uk-icon='sign-out'></span></a></li>";
+                            if (isset($_SESSION["_token"])) {
+                                $account_url = Utils\BASE_URL . '/home/account';
+                                $logout_url = Utils\BASE_URL . '/User/log_out';
+                                echo <<<HTML
+                                <li>
+                                    <a href='$account_url'>
+                                        <span class='text-white uk-icon' data-uk-icon='user'></span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href='$logout_url'>
+                                        <span class='text-white uk-icon' data-uk-icon='sign-out'></span>
+                                    </a>
+                                </li>
+                                HTML;
                             }
                             ?>
                         </ul>
@@ -130,7 +149,7 @@
                 <div class="uk-margin">
                     <form class="uk-search uk-search-default" name="searchform" action="#" method="POST">
                         <span class="uk-search-icon-flip" uk-search-icon></span>
-                        <input class="uk-search-input" type="search" aria-label="Search" aria-label="Search"
+                        <input class="uk-search-input" type="search" aria-label="Search"
                                name="searchinput" placeholder="Nhập sản phẩm cần tìm...">
                     </form>
                 </div>
@@ -167,7 +186,8 @@
             <hr class="uk-margin">
             <div class="uk-margin-bottom">
                 <a href="<?php echo Utils\BASE_URL ?>/home/index">
-                    <img class="" src="../../../as232/public/assets/img/Bach-Hoa-Xanh-Logo.png" alt="logo">
+                    <img class="" src="<?php echo Utils\BASE_URL ?>/public/assets/img/Bach-Hoa-Xanh-Logo.png"
+                         alt="logo">
                 </a>
             </div>
         </div>
@@ -194,7 +214,6 @@
 <script type="text/javascript">
     $('document').ready(() => {
         const paths = window.location.pathname.split('/')
-
         if (paths[paths.length - 1] !== 'index') {
             $(`.nav-btn.${paths[paths.length - 1]}`).addClass('active')
         } else {
@@ -205,7 +224,7 @@
 
 <?php
 if (isset($_POST['searchinput'])) {
-    echo '<script type = "text/javascript">
-        window.location.href = "<?php echo Utils\BASE_URL ?>/home/search/' . $_POST['searchinput'] . '"</script>';
+    $search_url = Utils\BASE_URL . '/home/search/' . $_POST['searchinput'];
+    echo '<script>window.location.href = "' . $search_url . '"</script>';
 }
 ?>

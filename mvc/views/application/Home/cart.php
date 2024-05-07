@@ -15,7 +15,6 @@ Utils\ensure_logged_in();
         display: flex;
         -webkit-transition: 0.5s;
         -o-transition: 0.5s;
-        padding: 0 20px;
         color: #eeeeee;
         font-family: "Open Sans", sans-serif;
         font-size: 18px;
@@ -28,7 +27,7 @@ Utils\ensure_logged_in();
         justify-content: space-around;
         width: 100%;
         border-bottom: 4px solid lightgray;
-        padding-bottom: 5px;
+        padding: 0 20px 5px;
     }
 
     .product__title, .product__price, .product__quantity, .product__total, .product__img {
@@ -147,6 +146,11 @@ Utils\ensure_logged_in();
                                            placeholder="Địa chỉ nhận hàng"
                                            value=""
                                            style="margin-top: 5px;"><br>
+                                    <label for="note"></label>
+                                    <input class="uk-input" id="note" type="text"
+                                           placeholder="Ghi chú"
+                                           value=""
+                                           style="margin-top: 5px;"><br>
                                 </form>
                             </div>
                         </div>
@@ -219,7 +223,7 @@ Utils\ensure_logged_in();
         productItem[tag].quantity -= 1;
         localStorage.setItem('productItem', JSON.stringify(productItem));
         if (productItem[tag].quantity === 0) {
-            CloseBtn(tag);
+            closeItem(tag);
         } else renderCart();
     }
 
@@ -231,7 +235,7 @@ Utils\ensure_logged_in();
         renderCart();
     }
 
-    function CloseBtn(tag) {
+    function closeItem(tag) {
         let product_name = $(`.product__${tag}`)[0];
         product_name.remove();
 
@@ -273,8 +277,8 @@ Utils\ensure_logged_in();
                         </span>
                     </h5>
                     <h5 class="product__total">${item.price * item.quantity}
-                        <a onclick="CloseBtn('${item.tag}')" class="product__close">
-                            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/macos-close.png"/>
+                        <a onclick="closeItem('${item.tag}')" class="product__close">
+                            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/macos-close.png" alt="close" >
                         </a>
                     </h5>
                 </div>
@@ -291,8 +295,8 @@ Utils\ensure_logged_in();
                 `;
                 childrens[3].innerHTML = `
                 ${item.price * item.quantity}
-                <a onclick="CloseBtn('${item.tag}')" class="product__close">
-                    <img src="https://img.icons8.com/ios-glyphs/30/ffffff/macos-close.png"/>
+                <a onclick="closeItem('${item.tag}')" class="product__close">
+                    <img src="https://img.icons8.com/ios-glyphs/30/ffffff/macos-close.png" alt="close" >
                 </a>
                 `;
             }
@@ -315,6 +319,7 @@ Utils\ensure_logged_in();
         const text = btn.innerHTML;
         if (text === "Đặt hàng") {
             const address = $('#address').val();
+            const note = $('#note').val();
             const radios = document.getElementsByTagName('input');
             let checkRadio = false;
             for (let i = 0; i < radios.length; i++) {
@@ -324,14 +329,9 @@ Utils\ensure_logged_in();
                 alert("Vui lòng nhập đầy đủ thông tin nhận hàng!");
             } else {
                 if (confirm("Bạn muốn đặt đơn hàng này ?")) {
-                    const orderID = Math.floor(Math.random() * 100000000);
-                    let userID = <?php echo $_SESSION["id"];?>;
-                    const today = new Date();
-                    today.setHours(today.getHours() + (today.getTimezoneOffset() / -60));
-                    const datetime = today.toJSON().slice(0, 19).replace('T', ' ');
-                    btn.href = "<?php echo Utils\BASE_URL ?>/home/success/" + orderID + "/" + userID + "/" + datetime + "/" + totalPrice + "/" + name + "/" + email + "/" + phone + "/" + address;
+                    const userID = <?php echo $_SESSION["id"] ?? null;?>;
+                    btn.href = "<?php echo Utils\BASE_URL ?>/home/success/" + `${userID}/${totalPrice}/${address}/${note}`;
                 }
-
             }
         }
     }
@@ -341,9 +341,8 @@ Utils\ensure_logged_in();
         productNumber = parseInt(productNumber);
 
         if (productNumber > 0) {
-            var btn = document.getElementById('page-cart__control-btn');
-            var total = document.getElementsByClassName('page-cart__title')[0];
-            // btn.href = '<?php echo Utils\BASE_URL ?>/Home/payment/';
+            let btn = document.getElementById('page-cart__control-btn');
+            let total = document.getElementsByClassName('page-cart__title')[0];
             btn.innerHTML = 'Đặt hàng';
             document.getElementsByClassName('page-cart__img')[0].style.display = 'none';
             total.style.textAlign = 'right';
@@ -351,11 +350,11 @@ Utils\ensure_logged_in();
             document.getElementsByClassName('page-cart__list')[0].style.display = 'block';
             renderCart();
         } else {
-            var btn = document.getElementById('page-cart__control-btn');
+            const btn = document.getElementById('page-cart__control-btn');
             btn.href = '<?php echo Utils\BASE_URL ?>/Home/catalog';
             btn.innerHTML = 'Trờ về mua sắm';
             document.getElementsByClassName('page-cart__img')[0].style.display = 'block';
-            var total = document.getElementsByClassName('page-cart__title')[0];
+            const total = document.getElementsByClassName('page-cart__title')[0];
             total.innerHTML = 'Giỏ hàng của bạn đang trống !';
             total.style.textAlign = 'center';
             total.style.marginRight = '0px';

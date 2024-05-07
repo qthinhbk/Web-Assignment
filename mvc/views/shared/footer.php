@@ -1,7 +1,7 @@
 <footer>
     <!-- <hr> -->
     <div class="footer-logo">
-        <img src="../../../as232/public/assets/img/Bach-Hoa-Xanh-Logo.png" alt="logo">
+        <img src="<?php echo Utils\BASE_URL ?>/public/assets/img/Bach-Hoa-Xanh-Logo.png" alt="logo">
     </div>
     <p style="margin-top:50px">Theo dõi chúng tôi qua</p>
     <div class="socialmedia">

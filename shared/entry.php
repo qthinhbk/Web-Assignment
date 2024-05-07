@@ -2,7 +2,7 @@
 
 namespace Utils;
 
-const BASE_URL = "<?php echo Utils\BASE_URL ?>";
+const BASE_URL = "http://localhost/as232";
 
 const _JWT_SECRET = 'D5Y&unVTCeLRYimfSYoZhVXa6S5FZU3g6$gPZEFrWyz3883Ziu$StNM2utPu5WL4R2L#3xT9E%gQasJ6TFkDA^ibqvV%4yxSDUZ%s&3AHa2b88xhXdvy!K$r9$#wouzH';
 
@@ -10,25 +10,30 @@ function ensure_logged_in(): void
 {
     $url = BASE_URL . "/user/sign_in";
     if (!isset($_SESSION["_token"])) {
-        echo <<<HTML
-        <script>
-            "use strict";
-            window.location.href = "$url";
-        </script>
-        HTML;
+        header("Location: $url");
+        exit();
+    } else {
+        if (!jwt_verify($_SESSION["_token"])) {
+            unset($_SESSION["_token"]);
+            header("Location: $url");
+            exit();
+        }
     }
+
 }
 
-function redirect_when_not_being_admin(): void
+function redirect_if_not_being_admin(): void
 {
     $url = BASE_URL;
-    if (isset($_SESSION["email"]) && $_SESSION["role"] == "customer") {
-        echo <<<HTML
-        <script>
-            "use strict";
-            window.location.href = "$url";
-        </script>
-        HTML;
+    if (isset($_SESSION["_token"])) {
+        $claims = jwt_get_claims($_SESSION["_token"]);
+        if ($claims["role"] != "admin") {
+            header("Location: $url");
+            exit();
+        }
+    } else {
+        header("Location: $url");
+        exit();
     }
 }
 
@@ -95,7 +100,7 @@ function jwt_verify($token): bool
     return hash_equals($signature, $hash);
 }
 
-function jwt_get_claim($token): array|false
+function jwt_get_claims($token): array|false
 {
     if (empty($token)) {
         return false;

@@ -1,9 +1,6 @@
 <?php
-if (!isset($_SESSION["id"])) {
-    $_SESSION["payment"] = "payment";
-    echo '<script type = "text/javascript">
-    window.location.href = "<?php echo Utils\BASE_URL ?>/User/sign_in"</script>';
-}
+Utils\ensure_logged_in();
+$claims = Utils\jwt_get_claims($_SESSION["_token"]);
 ?>
 
 <style>
@@ -31,14 +28,16 @@ if (!isset($_SESSION["id"])) {
         justify-content: center;
         align-items: center;
         width: 500px;
-        border-radious: 20px;
+        border-radius: 20px;
         font-size: 24px;
     }
 </style>
 
 <div class="page-wrapper">
     <?php
-    require_once "./mvc/views/" . $data["header"] . ".php";
+    if (isset($data)) {
+        require_once "./mvc/views/" . $data["header"] . ".php";
+    }
     ?>
     <main class="page-main">
 
@@ -73,34 +72,20 @@ if (!isset($_SESSION["id"])) {
     require_once "./mvc/views/" . $data["footer"] . ".php";
     ?>
 </div>
-</div>
-<script src="https://www.paypal.com/sdk/js?client-id=Aa74v1mrh1qryJE6Bo9asTWMjJ3M8AIDHQAY-1ols8ZslTGWIRCU2s6xTcw2puhr6QYurpjtUjp-LoAh&currency=USD&disable-funding=credit,card">
+<script
+        src="https://www.paypal.com/sdk/js?client-id=Aa74v1mrh1qryJE6Bo9asTWMjJ3M8AIDHQAY-1ols8ZslTGWIRCU2s6xTcw2puhr6QYurpjtUjp-LoAh&currency=USD&disable-funding=credit,card">
 </script>
 
 <script>
-    var paypal_price = <?php echo round($data["price"] / 23000) + 1?>;
-    var name = localStorage.getItem("name");
-    var email = localStorage.getItem("email");
-    var price = <?php echo $data["price"]?>;
-    var phone = localStorage.getItem("phone");
-    var address = localStorage.getItem("address");
-    const orderID = Math.floor(Math.random() * 100000000);
+    let paypal_price = 0;
+    let price = 0;
+    const address = localStorage.getItem("address");
     let userID = JSON.parse(document.getElementsByClassName('user-id')[0].innerHTML);
-    var today = new Date();
-    today.setHours(today.getHours() + (today.getTimezoneOffset() / -60));
-    const datetime = today.toJSON().slice(0, 19).replace('T', ' ');
+    let note = localStorage.getItem("note");
 
     function getOrder() {
-
-        var btn = document.getElementById('cod-payment');
-        btn.href = '<?php echo Utils\BASE_URL ?>/Home/success/' + orderID + "/" + userID + "/" + datetime + "/" + price + "/" + name + "/" + email + "/" + phone + "/" + address;
-
-        // let productItem = localStorage.getItem('productItem');
-        // productItem = JSON.parse(productItem);
-        // var keys = Object.keys(productItem);
-        // for (var key of keys.values()){
-        //   console.log(productItem[key].tag, productItem[key].quantity);
-        // }
+        const btn = document.getElementById('cod-payment');
+        btn.href = '<?php echo Utils\BASE_URL ?>/Home/success/' + `${userID}/${price}/${address}/${note}`;
     }
 
     paypal.Buttons({
@@ -118,8 +103,8 @@ if (!isset($_SESSION["id"])) {
         },
         onApprove: function (data, actions) {
             return actions.order.capture().then(function (orderData) {
-                var transaction = orderData.purchase_units[0].payments.captures[0];
-                window.location.href = '<?php echo Utils\BASE_URL ?>/Home/success/' + orderID + "/" + userID + "/" + datetime + "/" + price + "/" + name + "/" + email + "/" + phone + "/" + address;
+                const transaction = orderData.purchase_units[0].payments.captures[0];
+                window.location.href = '<?php echo Utils\BASE_URL ?>/Home/success/' + `${userID}/${price}/${address}/${note}`;
             });
         },
 

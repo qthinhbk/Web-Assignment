@@ -1,6 +1,8 @@
 <div class="page-wrapper">
     <?php
-    require_once "./mvc/views/" . $data["header"] . ".php";
+    if (isset($data)) {
+        require_once "./mvc/views/" . $data["header"] . ".php";
+    }
     ?>
     <main class="page-main">
         <div class="section-first-screen">
@@ -28,25 +30,22 @@
                         <article class="article-full">
 
                             <div class="article-full__info">
-                                <div class="article-full__author"><i
-                                            class="fas fa-user "></i><span>By Hoàng phiếm</span>
+                                <div class="article-full__author">
+                                    <i class="fas fa-user "></i><span><?php echo $row["author"] ?></span>
                                 </div>
-                                <div class="article-full__category"><i class="fas fa-folder-open"></i><span>Posted in
-                                    Event</span></div>
-                                <div class="article-full__date"><i class="fas fa-calendar-alt"></i><span>Octorer 10,
-                                    2022</span>
+                                <div class="article-full__date">
+                                    <i class="fas fa-calendar-alt"></i><span><?php echo $row["created_at"] ?></span>
                                 </div>
-                                <div class="article-full__comments"><i class="fas fa-comment"></i><span>10</span></div>
                             </div>
                             <div class="article-full__image">
                             </div>
                             <div>
-                                <h1><b><?php echo $row["header_news"] ?></b></h1>
+                                <h1><b><?php echo $row["header"] ?></b></h1>
                                 <p style="font-size: 16.5px; font-weight: bold; text-align: justify;">
-                                    <?php echo $row["intro_news"] ?></p>
-                                <div><img class="uk-width-1-1" src="<?php echo $row["img_news"] ?> " alt="article">
+                                    <?php echo $row["intro"] ?></p>
+                                <div><img class="uk-width-1-1" src="<?php echo $row["img_url"] ?> " alt="article">
                                 </div>
-                                <p><?php echo $row["content_news"] ?></p>
+                                <p><?php echo $row["content"] ?></p>
 
                                 <div class="article-full__bottom">
                                     <div class="article-full__tags">
@@ -57,10 +56,18 @@
                                     <div class="article-full__share">
                                         <div><strong>Chia sẻ</strong><i class="fas fa-share-alt"></i></div>
                                         <ul>
-                                            <li><a href="#!"><i class="fab fa-twitter"></i></a></li>
-                                            <li><a href="#!"><i class="fab fa-facebook-f"></i></a></li>
-                                            <li><a href="#!"><i class="fab fa-google-plus-g"></i></a></li>
-                                            <li><a href="#!"><i class="fab fa-pinterest-p"></i></a></li>
+                                            <li>
+                                                <a href="javascript:"><i class="fab fa-twitter"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:"><i class="fab fa-facebook-f"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:"><i class="fab fa-google-plus-g"></i></a>
+                                            </li>
+                                            <li>
+                                                <a href="javascript:"><i class="fab fa-pinterest-p"></i></a>
+                                            </li>
                                         </ul>
                                     </div>
                                 </div>

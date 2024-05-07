@@ -1,6 +1,8 @@
 <div class="page-wrapper">
     <?php
-    require_once "./mvc/views/" . $data["header"] . ".php";
+    if (isset($data)) {
+        require_once "./mvc/views/" . $data["header"] . ".php";
+    }
     ?>
     <main class="page-main">
         <div class="section-first-screen">
@@ -25,36 +27,27 @@
                     <div class="uk-grid" data-uk-grid>
                         <?php
                         if ($count === 0) {
-
                             ?>
 
                             <div class="uk-width-1-1@m">
                                 <aside class="sidebar">
                                     <div class="widjet widjet-search">
-                                        <!-- <form class="uk-search uk-search-default" action="#!"><button
-                                            class="uk-search-icon-flip" data-uk-search-icon
-                                            type="submit"></button><input class="uk-input uk-search-input uk-form-large"
-                                            type="search" placeholder="Search blog ..."></form>
-                                </div> -->
                                         <div class="widjet widjet-list-articles">
                                             <div class="widjet__title">Được xem nhiều gần đây</div>
-
                                             <ul class="list-articles">
                                                 <?php
                                                 while ($row = mysqli_fetch_array($data["news"])) {
                                                 ?>
                                                 <li class="list-articles-item">
-
                                                     <a class="list-articles-item__link"
-                                                       href="<?php echo Utils\BASE_URL ?>/news/detail/<?php echo $row["news_id"] ?>">
+                                                       href="<?php echo Utils\BASE_URL ?>/news/detail/<?php echo $row["id"] ?>">
                                                         <div class="list-articles-item__img"><img
-                                                                    src="<?php echo $row["img_news"] ?>"
+                                                                    src="<?php echo $row["img_url"] ?>"
                                                                     alt="article-thumb">
                                                         </div>
                                                         <div class="list-articles-item__info">
                                                             <div class="list-articles-item__title">
-                                                                <?php echo $row["header_news"] ?></div>
-                                                            <div class="list-articles-item__date">Posted: Jan 22, 2022
+                                                                <?php echo $row["header"] ?>
                                                             </div>
                                                         </div>
                                                     </a>
@@ -62,17 +55,6 @@
                                                     };
                                                     ?>
                                                 </li>
-                                            </ul>
-                                        </div>
-                                        <div class="widjet widjet-tags-cloud">
-                                            <div class="widjet__title">Gắn thẻ</div>
-                                            <ul class="tags-list">
-                                                <li><a href="#!">Nông sản</a></li>
-                                                <li><a href="#!">Trái cây</a></li>
-                                                <li><a href="#!">Hướng dẫn</a></li>
-                                                <li><a href="#!">Tin tức</a></li>
-                                                <li><a href="#!">Giảm giá</a></li>
-                                                <li><a href="#!">Sản phẩm mới</a></li>
                                             </ul>
                                         </div>
                                 </aside>
@@ -92,33 +74,34 @@
                                         <div class="uk-position-relative uk-visible-toggle uk-light" tabindex="-1"
                                              data-uk-slideshow>
                                             <ul class="uk-slideshow-items">
-                                                <li><img src="<?php echo $e["img_news"] ?>" alt data-uk-cover></li>
+                                                <li><img src="<?php echo $e["img_url"] ?>" alt data-uk-cover></li>
                                             </ul>
                                         </div>
                                     </div>
 
                                     <div class="article-intro__body">
                                         <div class="article-intro__info">
-                                            <div class="article-intro__author"><i class="fas fa-user"></i><span>By Hoàng
-                                                    Phiếm</span></div>
-                                            <div class="article-intro__category"><i
-                                                        class="fas fa-folder-open"></i><span>Posted in Event</span>
+                                            <div class="article-intro__author">
+                                                <i class="fas fa-user"></i><span><?php echo $e["author"] ?></span>
                                             </div>
-                                            <div class="article-intro__date"><i class="fas fa-calendar-alt"></i><span>November 10, 2022</span>
+                                            <div class="article-intro__date">
+                                                <i class="fas fa-calendar-alt"></i><span><?php echo $e["created_at"] ?></span>
                                             </div>
-                                            <div class="article-intro__comments"><i
-                                                        class="fas fa-comment"></i><span>10</span></div>
                                         </div>
-                                        <h2 class="article-intro__title"><?php echo $e["header_news"] ?></h2>
+                                        <h2 class="article-intro__title"><?php echo $e["header"] ?></h2>
                                         <div class="article-intro__content">
-                                            <p><?php echo $e["intro_news"] ?></p>
+                                            <p><?php echo $e["intro"] ?></p>
                                         </div>
                                         <div class="article-intro__bottom">
-                                            <div class="article-intro__tags"><i class="fas fa-tags"></i><span>TIN TỨC, NÔNG
-                                                    SẢN, TRÁI CÂY</span></div>
-                                            <div class="article-intro__more"><a class="uk-button"
-                                                                                href="<?php echo Utils\BASE_URL ?>/news/detail/<?php echo $e["news_id"] ?>">Chi
-                                                    Tiết</a></div>
+                                            <div class="article-intro__tags">
+                                                <i class="fas fa-tags"></i><span>TIN TỨC, NÔNG SẢN, TRÁI CÂY</span>
+                                            </div>
+                                            <div class="article-intro__more">
+                                                <a class="uk-button"
+                                                   href="<?php echo Utils\BASE_URL ?>/news/detail/<?php echo $e["id"] ?>">
+                                                    Chi Tiết
+                                                </a>
+                                            </div>
                                         </div>
                                     </div>
                                 </article>

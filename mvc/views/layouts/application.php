@@ -13,8 +13,8 @@
     <script src="https://cdn.jsdelivr.net/npm/uikit@3.20.8/dist/js/uikit-icons.min.js"
             integrity="sha256-1BS6fnknrfHf2RSvnVl11uenVY2m3pLRpomLjEOm9RA=" crossorigin="anonymous"></script>
 
-    <link rel="stylesheet" href="../../../public/assets/css/main.css">
-    <link id="dm-light" rel="stylesheet" href="../../../public/assets/css/light.css">
+    <link rel="stylesheet" href="<?php echo Utils\BASE_URL ?>/public/assets/css/main.css">
+    <link id="dm-light" rel="stylesheet" href="<?php echo Utils\BASE_URL ?>/public/assets/css/light.css">
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
           integrity="sha256-9kPW/n5nn53j4WMRYAxe9c1rCY96Oogo/MKSVdKzPmI=" crossorigin="anonymous">
@@ -38,8 +38,8 @@ if (isset($data)) {
 }
 ?>
 
-<script src="../../../public/assets/js/main.js"></script>
-<script src="../../../public/assets/js/fontawesome.all.min.js"></script>
+<script src="<?php echo Utils\BASE_URL ?>/public/assets/js/main.js"></script>
+<script src="<?php echo Utils\BASE_URL ?>/public/assets/js/fontawesome.all.min.js"></script>
 </body>
 
 </html>

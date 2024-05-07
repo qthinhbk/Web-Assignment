@@ -1,79 +1,60 @@
 <?php
-if (isset($_SESSION["email"]) && $_SESSION["role"] == "admin") {
-    echo '<script type = "text/javascript">
-            window.location.href = "<?php echo Utils\BASE_URL ?>/category/index"</script>';
+if (isset($_SESSION["_token"])) {
+    if (!Utils\jwt_verify($_SESSION["_token"])) {
+        header("Location: " . Utils\BASE_URL . "/user/log_out");
+        exit();
+    }
+    $claims = Utils\jwt_get_claims($_SESSION["_token"]);
+    if ($claims["role"] == "admin") {
+        header("Location: " . Utils\BASE_URL . "/category/index");
+    } else {
+        header("Location: " . Utils\BASE_URL . "/");
+    }
+    exit();
 }
 
-if (isset($_SESSION["email"]) && $_SESSION["role"] == "customer") {
-    echo '<script type = "text/javascript">
-        window.location.href = "<?php echo Utils\BASE_URL ?>/"</script>';
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $email = $_POST['email'];
+    $password = $_POST['password'];
+    if (isset($data)) {
+        /**
+         * @var UserModel $user_model
+         */
+        $user_model = $data["user_model"];
+        $user = $user_model->compare_user($email, $password);
+        if ($user) {
+            $_SESSION["_token"] = Utils\jwt_generate(
+                [
+                    "id" => $user["id"],
+                    "name" => $user["name"],
+                    "email" => $email,
+                    "phone" => $user["phone"],
+                    "role" => $user["role"],
+                ]
+            );
+        }
+        if ($user["role"] == "admin") {
+            $url = Utils\BASE_URL . "/category/index";
+            echo "<script>alert('Đăng nhập thành công!'); window.location.href = '$url';</script>";
+            exit();
+        } else {
+            $url = Utils\BASE_URL . "/";
+            echo "<script>alert('Đăng nhập thành công!'); window.location.href = '$url';</script>";
+            exit();
+        }
+    }
 }
 
-if (isset($_POST['submit'])) {
-$email = $_POST['email'];
-$password = $_POST['password'];
-$select = mysqli_query($data["userModal"]->con,
-    "SELECT * FROM user WHERE email = '$email' AND password = '$password'");
-$row = mysqli_fetch_array($select);
-if (is_array($row)) {
-$_SESSION["email"] = $row['email'];
-$_SESSION["password"] = $row['password'];
-$_SESSION["role"] = $row['role'];
-$_SESSION["id"] = $row['user_id'];
-$_SESSION["name"] = $row['user_name'];
-$_SESSION["phone"] = $row['phone'];
-
-if (isset($_SESSION["email"])) {
-if ($row['role'] == "admin") {
-    echo '<script type = "text/javascript">
-                window.location.href = "<?php echo Utils\BASE_URL ?>/category/index"</script>';
-}
-// elseif (isset($_SESSION["payment"])){
-//     unset($_SESSION["payment"]);
-//     echo '<script type = "text/javascript">
-//     window.location.href = "<?php echo Utils\BASE_URL ?>/Home/payment/"</script>';
-// }
-else {
-echo '
-<script type="text/javascript">
-    window.location.href = "<?php echo Utils\BASE_URL ?>/"</script>';
-}
-}
-} else {
-echo '
-<script type="text/javascript">
-    alert("Email hoặc mặt khẩu không đúng");
-    window.location.href = "<?php echo Utils\BASE_URL ?>/User/sign_in"</script>';
-}
-}
 ?>
 <style>
     body {
         height: 100vh;
         width: 100vw;
-        background: center / cover no-repeat url("../../../as232/public/assets/img/background.png");
+        background: center / cover no-repeat url("<?php echo Utils\BASE_URL ?>/public/assets/img/background.png");
         overflow: hidden;
         display: flex;
         justify-content: center;
         align-items: center;
-    }
-
-    /* Login Form */
-    .modal-backdrop {
-        display: none;
-    }
-
-    .signup-form {
-        margin-bottom: 40px;
-    }
-
-    .signup-form,
-    .login-form {
-        width: 500px;
-        box-shadow: 0px 0 30px 5px rgb(0 0 0 / 30%);
-        padding: 12px 36px;
-        border-radius: 4px;
-        background-color: #fff;
     }
 
     .signup-form label,
@@ -83,7 +64,6 @@ echo '
     }
 
     .form-logo {
-        /* padding: 0 200px; */
         height: 50px;
         width: 270px;
         margin: 84px auto;
@@ -129,15 +109,6 @@ echo '
     }
 
 
-    .google-btn {
-        background-color: white;
-        width: 100%;
-        color: black;
-        box-shadow: 0px 0px 2px rgb(0 0 0 / 25%);
-        height: 45px;
-        padding: 4px 32px;
-    }
-
     .google-btn img {
         padding-bottom: 1px;
         width: 9%;
@@ -145,11 +116,6 @@ echo '
 
     .google-btn span {
         line-height: 37px;
-    }
-
-    .google-btn .img-container {
-        width: 50px;
-        margin: 0;
     }
 
     .forgotPass {
@@ -162,12 +128,11 @@ echo '
 </style>
 <!-- Page Content -->
 <div class="login-form">
-    <form method="post" name="login" class="form-style">
+    <form method="post" class="form-style" name="login-form">
         <div class="form-logo">
             <a href="<?php echo Utils\BASE_URL ?>/home/index">
-                <img src="../../../as232/public/assets/img/Bach-Hoa-Xanh-Logo.png" alt="logo">
+                <img src="<?php echo Utils\BASE_URL ?>/public/assets/img/Bach-Hoa-Xanh-Logo.png" alt="logo">
             </a>
-
         </div>
         <label for="email"><b>Email</b></label> <br>
         <input type="email" name="email" placeholder="Nhập Email" id="email" class="form-control" required> <br>

@@ -1,9 +1,9 @@
 <?php
 Utils\ensure_logged_in();
-
+$claims = Utils\jwt_get_claims($_SESSION["_token"]);
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $_token = $_SESSION["_token"] ?? "";
-    $claims = Utils\jwt_get_claim($_token);
+    $claims = Utils\jwt_get_claims($_token);
     $name = $_POST['name'] ?? "";
     $email = $_POST['email'] ?? "";
     $phone = $_POST['phone'] ?? "";
@@ -135,13 +135,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div>
                                 <input class="uk-input uk-form-large"
                                        name='email' type="email" id="emailInput"
-                                       placeholder="<?php echo $claims['email'] ?>">
+                                       placeholder="<?php echo $claims['email'] ?>"
+                                >
                             </div>
                             <br>
                             <label class="form_title" for="phoneInput">Số điện thoại:</label>
                             <div>
                                 <input class="uk-input uk-form-large" name='phone' type="number"
-                                       id="phoneInput" placeholder="<?php echo $claims['phone'] ?>">
+                                       id="phoneInput"
+                                       placeholder="<?php echo $claims['phone'] ?>"
+                                >
                             </div>
                             <br>
                             <label class="form_title" for="oldPwdInput">Nhập lại mật khẩu cũ:</label>

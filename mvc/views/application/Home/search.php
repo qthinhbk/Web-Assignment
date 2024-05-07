@@ -1,6 +1,8 @@
 <div class="page-wrapper">
     <?php
-    require_once "./mvc/views/" . $data["header"] . ".php";
+    if (isset($data)) {
+        require_once "./mvc/views/" . $data["header"] . ".php";
+    }
     ?>
     <main class="page-main">
         <div class="section-first-screen">
@@ -9,18 +11,24 @@
             <div class="first-screen__content hide-in-sd" style="height: 300px;">
                 <div class="uk-container" style="padding: 32px 0">
                     <div class="first-screen__box page-info">
-                        <h2 style="font-size: 50px" class="first-screen-page">Kết quả tìm kiếm cho:
-                            "<?php echo $data["name"] ?>"</h2>
+                        <h2 style="font-size: 50px" class="first-screen-page">
+                            Kết quả tìm kiếm cho: "<?php echo $data["name"] ?>"
+                        </h2>
                         <div class="first-screen__breadcrumb">
                             <ul class="uk-breadcrumb">
-                                <li><a href="<?php echo Utils\BASE_URL ?>/home/index">Trang chủ</a></li>
-                                <li><a href="#">Kết quả tìm kiếm</a></li>
+                                <li>
+                                    <a href="<?php echo Utils\BASE_URL ?>/home/index">
+                                        Trang chủ
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#">Kết quả tìm kiếm</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
                 </div>
             </div>
-            <br> <br>
             <div class="page-content">
                 <div class="uk-container">
                     <div data-uk-filter="target: .js-filter">
@@ -31,7 +39,6 @@
                                 <li data-uk-filter-control="[data-tags='2']"><a href="#">Thịt</a></li>
                                 <li data-uk-filter-control="[data-tags='3']"><a href="#">Rau củ quả</a></li>
                                 <li data-uk-filter-control="[data-tags='4']"><a href="#">Thủy hải sản</a></li>
-
                         </div>
                         <ul class="js-filter uk-grid uk-grid-small uk-child-width-1-2@s uk-child-width-1-3@m uk-child-width-1-4@l"
                             data-uk-grid>
@@ -42,18 +49,22 @@
                                     <div class="product-item" style="border: 2px solid #cce8d9;">
                                         <div class="product-item__box">
                                             <div class="product-item__intro">
-                                                <a href="<?php echo Utils\BASE_URL ?>/home/product/<?php echo $row["product_id"] ?>"
+                                                <a href="<?php echo Utils\BASE_URL ?>/home/product/<?php echo $row["id"] ?>"
                                                    style="text-decoration: none;">
                                                     <div class="product-item__not-active">
                                                         <div class="product-item__media">
                                                             <div class="uk-inline-clip uk-transition-toggle uk-light"
-                                                                 data-uk-lightbox="data-uk-lightbox"><img
+                                                                 data-uk-lightbox="data-uk-lightbox">
+                                                                <img
                                                                         class="product-zoom"
                                                                         style="height: 100%; width:100%; object-fit: cover;"
-                                                                        src="../../../as232/public/assets/img<?php echo $row["avatar"] ?>?t=123"
-                                                                        alt="<?php echo $row["avatar"] ?>"/></div>
+                                                                        src="../../../as232/public/assets/img<?php echo $row["img_url"] ?>?t=123"
+                                                                        alt="<?php echo $row["img_url"] ?>"/>
+                                                            </div>
                                                         </div>
-                                                        <div class="product-item__title"><?php echo $row["product_name"] ?></div>
+                                                        <div class="product-item__title">
+                                                            <?php echo $row["name"] ?>
+                                                        </div>
                                                     </div>
                                                     <div class="product-item__info">
                                                         <div class="product-item__price"><b><span
@@ -70,7 +81,6 @@
                             }
                             ?>
                         </ul>
-                        <!-- <div class="uk-margin-medium-top uk-text-center"><button class="uk-button" type="button">Load more </button></div> -->
                     </div>
                 </div>
             </div>

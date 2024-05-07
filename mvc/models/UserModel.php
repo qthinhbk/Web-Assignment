@@ -8,7 +8,7 @@ class UserModel extends Database
         return mysqli_query($this->con, $sql);
     }
 
-    public function compare_user($email, $password): mysqli_result|bool
+    public function compare_user($email, $password): array|null|bool
     {
         $raw_sql = "SELECT * FROM users WHERE email = ?";
         $stmt = $this->con->prepare($raw_sql);
@@ -24,7 +24,7 @@ class UserModel extends Database
         if (!password_verify($password, $user['password_hash'])) {
             return false;
         }
-        return $result;
+        return $user;
     }
 
     public function get_user($id): mysqli_result|bool
@@ -34,6 +34,19 @@ class UserModel extends Database
         $stmt->bind_param("i", $id);
         $stmt->execute();
         return $stmt->get_result();
+    }
+
+    public function add_user(array $record): bool {
+        $raw_sql = "INSERT INTO users (id, name, email, phone, password_hash) VALUES (?, ?, ?, ?, ?)";
+        $id = time() % 100_000_000;
+        $stmt = $this->con->prepare($raw_sql);
+        $name = $record["name"];
+        $email = $record["email"];
+        $phone = $record["phone"];
+        $password_hash = password_hash($record["password"], PASSWORD_BCRYPT);
+        $stmt->bind_param("issss", $id, $name, $email, $phone, $password_hash);
+        $stmt->execute();
+        return $stmt->affected_rows > 0;
     }
 
     public function update_name($id, $name): bool

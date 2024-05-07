@@ -38,7 +38,7 @@ jQuery(document).ready(function ($) {
         $(this).next('.js-hidden-btn').on('click', function (e) {
             e.preventDefault();
             $(this).prev('.js-hidden-box').children('div:hidden').slice(0, 3).slideDown();
-            var elHidden = $(this).prev('.js-hidden-box').children('div:hidden').length;
+            const elHidden = $(this).prev('.js-hidden-box').children('div:hidden').length;
 
             if (elHidden <= 0) {
                 $(this).hide();
@@ -55,18 +55,6 @@ jQuery(document).ready(function ($) {
 // Preloader
 /////////////////////////////////////////////////////////////////
 
-var $preloader = $('#page-preloader'), $spinner = $preloader.find('.spinner-loader');
+const $preloader = $('#page-preloader'), $spinner = $preloader.find('.spinner-loader');
 $spinner.fadeOut();
 $preloader.delay(50).fadeOut('slow');
-
-
-const mediaQueryTablet = window.matchMedia('(max-width: 768px)');
-
-function handleTabletChange(e) {
-    if (e.matches) {
-        console.log('Media Query 768!');
-    }
-}
-
-mediaQueryTablet.addListener(handleTabletChange);
-handleTabletChange(mediaQueryTablet);

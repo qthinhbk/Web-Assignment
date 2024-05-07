@@ -91,21 +91,17 @@ class Home extends Controller
         ]);
     }
 
-    function success($oid, $uid, $datetime, $price, $name, $email, $phone, $address): void
+    function success($customer_id, $total, $address, $note): void
     {
         $order = $this->model_query("OrderModel");
         $this->view_render("layouts/application", [
             "page" => "application/home/success",
             "header" => "shared/header",
             "footer" => "shared/footer",
-            "oid" => $oid,
-            "uid" => $uid,
-            "date" => $datetime,
-            "price" => $price,
-            "name" => $name,
-            "email" => $email,
-            "phone" => $phone,
+            "customer_id" => $customer_id,
+            "total" => $total,
             "address" => $address,
+            "note" => $note,
             "order_model" => $order
         ]);
     }

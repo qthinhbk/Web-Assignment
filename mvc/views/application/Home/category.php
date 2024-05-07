@@ -1,6 +1,14 @@
 <?php
-$id = $data['id'];
+$id = null;
+if (isset($data)) {
+    $id = $data['id'];
+}
 $_SESSION['category_id'] = $id;
-echo '<script type = "text/javascript">
-        window.location.href = "<?php echo Utils\BASE_URL ?>/home/catalog"</script>';
+$redirect_url = Utils\BASE_URL . '/home/catalog';
+echo <<<HTML
+    <script>
+        "use strict";
+        window.location.href = "$redirect_url";
+    </script>
+HTML;
 
