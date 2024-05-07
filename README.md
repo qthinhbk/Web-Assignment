@@ -12,8 +12,8 @@
 - User view: visit [http://localhost/as232/](http://localhost/as232/) to open the project.
 - Admin view: visit [http://localhost/as232/category/](http://localhost/as232/category/index) and sign in with the
   following credentials:
-    - Username: admin@example.com
-    - Password: 123qwerty
+  - Username: <admin@example.com>
+  - Password: 123qwerty
 
 ## Note
 
