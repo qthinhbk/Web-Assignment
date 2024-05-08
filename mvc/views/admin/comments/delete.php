@@ -1,5 +1,5 @@
 <?php
-Utils\redirect_if_not_being_admin();
+Utils\ensure_logged_in_as_admin();
 if (isset($data["pid"])) {
     $pid = $data["pid"];
     $cid = $data["cid"];

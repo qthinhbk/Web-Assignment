@@ -43,7 +43,7 @@ $claims = Utils\jwt_get_claims($_SESSION["_token"]);
 
         <div class="section-first-screen">
             <div class="first-screen__bg hide-in-sd"
-                 style="background-color: rgba(86, 178, 128, 15%); height: 300px;"></div>
+                 style="background-color: rgba(248, 78, 69, 15%); height: 300px;"></div>
             <div class="first-screen__content hide-in-sd" style="height: 300px;">
                 <div class="uk-container" style="padding: 32px 0">
                     <div class="first-screen__box page-info">

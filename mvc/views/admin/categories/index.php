@@ -1,10 +1,10 @@
 <?php
-Utils\redirect_if_not_being_admin();
+Utils\ensure_logged_in_as_admin();
 ?>
 
 <style>
     #add-category-link {
-        background-color: #008848;
+        background-color: #F84E45;
         text-decoration: none;
         color: white;
         border: 1px solid white;

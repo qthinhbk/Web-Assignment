@@ -17,6 +17,15 @@ class CommentModel extends Database
         return $stmt->get_result();
     }
 
+    public function get_comments_by_product($pid): mysqli_result|bool
+    {
+        $raw_sql = "SELECT * FROM comments WHERE product_id = ?";
+        $stmt = $this->con->prepare($raw_sql);
+        $stmt->bind_param("i", $pid);
+        $stmt->execute();
+        return $stmt->get_result();
+    }
+
     public function add_comment($pid, $cid, $comment): bool
     {
         $raw_sql = "INSERT INTO comments (product_id, customer_id, content) VALUES (?, ?, ?)";

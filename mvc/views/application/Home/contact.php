@@ -7,7 +7,7 @@
     <main class="page-main">
         <div class="section-first-screen">
             <div class="first-screen__content hide-in-sd"
-                 style="background-color: rgba(86, 178, 128, 15%);"
+                 style="background-color: rgba(248, 78, 69, 15%);"
             >
                 <div class="uk-container py-4">
                     <div class="first-screen__box page-info">
@@ -18,13 +18,13 @@
                             <div class="col-8 col-md-3 mx-3 mb-5">
                                 <div class="d-flex flex-column align-items-center">
                                     <div class="p-5 rounded-circle lh-1 mb-4"
-                                         style="background: rgba(86, 178, 128, 15%);">
+                                         style="background: rgba(248, 78, 69, 15%);">
                                         <i class="bi bi-telephone-fill fs-1"></i>
                                     </div>
                                     <h3 class="mb-3 text-uppercase">
                                         Số điện thoại
                                     </h3>
-                                    <p class="text-break">
+                                    <p class="text-break text-center">
                                         0123456789
                                     </p>
                                 </div>
@@ -32,28 +32,28 @@
                             <div class="col-8 col-md-3 mx-3 mb-5">
                                 <div class="d-flex flex-column align-items-center">
                                     <div class="p-5 rounded-circle lh-1 mb-4"
-                                         style="background: rgba(86, 178, 128, 15%);">
+                                         style="background: rgba(248, 78, 69, 15%);">
                                         <i class="bi bi-envelope-fill fs-1"></i>
                                     </div>
                                     <h3 class="mb-3 text-uppercase">
                                         Email
                                     </h3>
-                                    <p class="text-break">
-                                        contact@bachhoaxanh.com
+                                    <p class="text-break text-center">
+                                        contact@omg.com
                                     </p>
                                 </div>
                             </div>
                             <div class="col-8 col-md-3 mx-3 mb-5">
                                 <div class="d-flex flex-column align-items-center">
                                     <div class="p-5 rounded-circle lh-1 mb-4"
-                                         style="background: rgba(86, 178, 128, 15%);">
+                                         style="background: rgba(248, 78, 69, 15%);">
                                         <i class="bi bi-geo-alt-fill fs-1"></i>
                                     </div>
                                     <h3 class="mb-3 text-uppercase">
                                         Địa chỉ
                                     </h3>
-                                    <p class="text-break">
-                                        Đường ABC, Phường XYZ, Quận 123, TP.HCM
+                                    <p class="text-break text-center">
+                                        123 Đường ABC, Quận XYZ, TP. HCM
                                     </p>
                                 </div>
                             </div>

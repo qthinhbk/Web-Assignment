@@ -10,6 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $claims = Utils\jwt_get_claims($_SESSION['_token']);
         $customer = $claims['id'];
     }
+    else {
+        echo '<script>alert("Vui lòng đăng nhập để đánh giá sản phẩm")</script>';
+    }
     if ($comment == null) {
         echo '<script>alert("Vui lòng điền đầy đủ thông tin")</script>';
     } else {
@@ -37,12 +40,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ?>
             <div class="section-first-screen">
                 <div class="first-screen__bg hide-in-sd"
-                     style="background-color: rgba(86, 178, 128, 15%); height: 300px;">
+                     style="background-color: rgba(248, 78, 69, 15%); height: 300px;">
                 </div>
                 <div class="first-screen__content hide-in-sd" style="height: 300px;">
                     <div class="uk-container" style="padding: 32px 0">
                         <div class="first-screen__box page-info">
-                            <p style="color: #008848; font-size: 50px; text-align: center">
+                            <p style="color: #F84E45; font-size: 50px; text-align: center">
                                 <?php
                                 switch ($row['category_id']) {
                                     case 1:
@@ -181,32 +184,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="detail-description">
                                 <h2>Đánh giá sản phẩm</h2>
                                 <ul class="uk-comment-list">
-                                    <li>
-                                        <article class="uk-comment">
-                                            <header class="uk-comment-header">
-                                                <div class="uk-grid-small uk-grid-divider" data-uk-grid>
-                                                    <div class="uk-width-auto@s">
-                                                        <img class="uk-comment-avatar"
-                                                             src="<?php echo Utils\BASE_URL ?>/public/assets/img/pages/home/fp1.png"
-                                                             alt>
-                                                    </div>
-                                                    <div class="uk-width-expand@s">
-                                                        <div class="uk-flex uk-flex-middle uk-margin-small-bottom">
-                                                            <h4 class="uk-comment-title uk-margin-remove">
-                                                                Nguyễn Văn A
-                                                            </h4>
-                                                            <span class="uk-text-meta uk-margin-small-left">
-                                                                August 20, 2021
-                                                            </span>
-                                                        </div>
-                                                        <div class="uk-comment-body">
-                                                            <p>Chất lượng rất tuyệt vời</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </header>
-                                        </article>
-                                    </li>
+                                <?php
+                                /**
+                                 * @var CommentModel $comment_model
+                                 */
+                                $comments = $data['comment_model']->get_comments_by_product($productId);
+                                while ($comment = mysqli_fetch_assoc($comments)) {
+                                    $customer = $comment['customer_id'];
+                                    /**
+                                     * @var UserModel $user_model
+                                     */
+                                    $user_model = $data['user_model'];
+                                    $customer_name = $user_model->get_user($customer)->fetch_assoc()['name'];
+                                    ?>
                                     <li>
                                         <article class="uk-comment">
                                             <header class="uk-comment-header">
@@ -218,31 +208,32 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                                     </div>
                                                     <div class="uk-width-expand@s">
                                                         <div class="uk-flex uk-flex-middle uk-margin-small-bottom">
-                                                            <h4 class="uk-comment-title uk-margin-remove">Nguyễn Thị
-                                                                B</h4>
-                                                            <span class="uk-text-meta uk-margin-small-left">August 20,
-                                                                2020</span>
+                                                            <h4 class="uk-comment-title uk-margin-remove">
+                                                                <?php echo $customer_name ?>
+                                                            </h4>
+                                                            <span class="uk-text-meta uk-margin-small-left">
+                                                                <?php echo $comment['created_at'] ?>
+                                                            </span>
                                                         </div>
                                                         <div class="uk-comment-body">
-                                                            <p>Tối rất thích</p>
+                                                            <p><?php echo $comment['content'] ?></p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </header>
                                         </article>
                                     </li>
+                                    <?php
+                                }
+                                    ?>
                                 </ul>
                                 <div class="block-form uk-margin-medium-top">
                                     <div class="section-title">
                                         <div class="uk-h2">Để lại đánh giá của bạn</div>
                                     </div>
                                     <div class="section-content">
-                                        <form action="#!" method="POST">
+                                        <form action="" method="POST">
                                             <div class="uk-grid uk-grid-small uk-child-width-1-2@s" data-uk-grid>
-                                                <div><input class="uk-input uk-form-large" type="text" name="name"
-                                                            placeholder="Tên *"></div>
-                                                <div><input class="uk-input uk-form-large" type="text" name="email"
-                                                            placeholder="Email *"></div>
                                                 <div class="uk-width-1-1"><textarea class="uk-textarea uk-form-large"
                                                                                     name="feedback"
                                                                                     placeholder="Đánh giá *"></textarea>
@@ -272,7 +263,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     ?>
 </div>
 
-<script type="text/javascript">
+<script defer>
     "use strict";
     let selectedItem = {
         img_src: "",
@@ -422,7 +413,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
         if (productNumber > 0) {
             let btn = document.getElementById('page-cart__control-btn');
-            btn.href = '<%= payment_index_path %>';
+            btn.href = "<?php echo Utils\BASE_URL ?>" + "/home/payment";
             btn.innerHTML = 'PAYMENT';
             document.getElementsByClassName('page-cart__img')[0].style.display = 'none';
             let total = document.getElementsByClassName('page-cart__title')[0];

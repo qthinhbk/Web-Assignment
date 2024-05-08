@@ -1,4 +1,4 @@
-<div style="background-color: rgba(86, 178, 128, 15%); color:black; padding:50px">
+<div style="background-color: rgba(248, 78, 69, 15%); color:black; padding:50px">
     <ul>
         <li style="list-style-type:none ;padding-bottom:20px;">
             <div class="navbar-brand" title="Pages"

@@ -1,11 +1,11 @@
 <?php
-Utils\redirect_if_not_being_admin();
+Utils\ensure_logged_in_as_admin();
 ?>
 
 <div class="card">
     <div class="card-body">
         <?php
-        if (isset($data) && isset($_POST['submit'])) {
+        if (isset($data) && $_SERVER["REQUEST_METHOD"] == "POST") {
             $id = $_POST['id'];
             $name = $_POST['name'];
             $redirect_link = Utils\BASE_URL . "/Category/index";
@@ -61,7 +61,7 @@ Utils\redirect_if_not_being_admin();
             </div>
 
             <div class="d-flex justify-content-end">
-                <input type="submit" value="Save changes" class="btn btn-primary" name="submit">
+                <input type="submit" value="Save changes" class="btn btn-primary">
             </div>
         </form>
 

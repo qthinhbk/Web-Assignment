@@ -5,7 +5,7 @@
                 <div class="uk-navbar-left">
                     <a href="<?php echo Utils\BASE_URL ?>/home/index">
                         <img class="logo__img logo__img--full"
-                             src="<?php echo Utils\BASE_URL ?>/public/assets/img/Bach-Hoa-Xanh-Logo.png"
+                             src="<?php echo Utils\BASE_URL ?>/public/assets/img/Logo.png"
                              alt="logo">
                     </a>
                 </div>
@@ -142,7 +142,7 @@
 
         </div>
     </div>
-    <div style="background-color: #56B280; height: 1px; width: 100%; margin: 0"></div>
+    <div style="background-color: #F84E45; height: 1px; width: 100%; margin: 0"></div>
     <div id="offcanvas" data-uk-offcanvas="overlay: true">
         <div class="uk-offcanvas-bar">
             <div class="uk-margin-bottom">
@@ -186,7 +186,7 @@
             <hr class="uk-margin">
             <div class="uk-margin-bottom">
                 <a href="<?php echo Utils\BASE_URL ?>/home/index">
-                    <img class="" src="<?php echo Utils\BASE_URL ?>/public/assets/img/Bach-Hoa-Xanh-Logo.png"
+                    <img class="" src="<?php echo Utils\BASE_URL ?>/public/assets/img/Logo.png"
                          alt="logo">
                 </a>
             </div>

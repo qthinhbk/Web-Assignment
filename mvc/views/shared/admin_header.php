@@ -1,6 +1,6 @@
-<header id="header" style="background-color:#008848;display:flex;padding:20px">
+<header id="header" style="background-color:#F84E45;display:flex;padding:20px">
     <div style="text-align:right;margin-left:50px;width:50%">
-        <img src="<?php echo Utils\BASE_URL ?>/public/assets/img/Bach-Hoa-Xanh-Logo.png" alt=""
+        <img src="<?php echo Utils\BASE_URL ?>/public/assets/img/Logo.png" alt=""
              style="width:20%;display:flex">
     </div>
 

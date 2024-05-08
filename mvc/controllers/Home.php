@@ -46,12 +46,14 @@ class Home extends Controller
     {
         $product = $this->model_query("ProductModel");
         $comment = $this->model_query("CommentModel");
+        $user = $this->model_query("UserModel");
         $this->view_render("layouts/application", [
             "page" => "application/home/product",
             "header" => "shared/header",
             "footer" => "shared/footer",
             "product" => $product->get_product($id),
             "comment_model" => $comment,
+            "user_model" => $user,
             "pid" => $id
         ]);
     }

@@ -1,5 +1,5 @@
 <?php
-if (isset($_POST['submit'])) {
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (isset($data["id"])) {
         $id = $data["id"];
         $name = $_POST['name'];
@@ -32,7 +32,7 @@ if (isset($_POST['submit'])) {
             </div>
 
             <div class="d-flex justify-content-end">
-                <input type="submit" name="submit" value="Save changes" class="btn btn-primary">
+                <input type="submit" value="Save changes" class="btn btn-primary">
             </div>
         </form>
 

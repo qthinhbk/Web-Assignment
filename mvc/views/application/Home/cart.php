@@ -86,7 +86,7 @@ Utils\ensure_logged_in();
 
         <div class="section-first-screen">
             <div class="first-screen__bg hide-in-sd"
-                 style="background-color: rgba(86, 178, 128, 15%); height: 300px;">
+                 style="background-color: rgba(248, 78, 69, 15%); height: 300px;">
             </div>
             <div class="first-screen__content hide-in-sd" style="height: 300px;">
                 <div class="uk-container" style="padding: 32px 0">
@@ -310,7 +310,7 @@ Utils\ensure_logged_in();
         totalEle.innerHTML = `
         Tạm tính: <span style="margin-left: 24px">${subtotal}đ</span><br>
         Phí vận chuyển: <span style="margin-left: 36px">15000đ</span><br>
-        Tổng cộng: <span style="color: #56B280; margin-left: 36px">${total}</span>
+        Tổng cộng: <span style="color: #F84E45; margin-left: 36px">${total}</span>
         `;
     }
 

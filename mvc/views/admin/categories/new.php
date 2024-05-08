@@ -1,6 +1,6 @@
 <h1>New Category</h1>
 <?php
-Utils\redirect_if_not_being_admin();
+Utils\ensure_logged_in_as_admin();
 ?>
 
 <?php

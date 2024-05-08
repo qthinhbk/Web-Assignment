@@ -1,19 +1,11 @@
 <?php
-if (!isset($_SESSION)) {
-    session_start();
-}
-if (!isset($_SESSION["email"])) {
-    $redirect_url = Utils\BASE_URL . "/User/sign_in";
-    header("Location: $redirect_url");
-}
+Utils\ensure_logged_in_as_admin();
 ?>
 <!DOCTYPE html>
 <html lang="vi">
 <head>
-    <title>BHX Admin</title>
+    <title>OG! Admin</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <link rel="shortcut icon" href="<?php echo Utils\BASE_URL ?>/public/assets/img/Bach-Hoa-Xanh-Logo.png"
-          type="image/x-icon">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
           integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn" crossorigin="anonymous">
     <link rel="stylesheet" href="<?php echo Utils\BASE_URL ?>/public/assets/css/theme_admin.css">

@@ -226,7 +226,7 @@ blockquote::before {
     padding: 0 20px;
     border-radius: 2px;
     color: white;
-    background-color: #008848;
+    background-color: #F84E45;
     font-family: "Montserrat";
     font-size: 17px;
     font-style: normal;
@@ -240,9 +240,9 @@ blockquote::before {
 .uk-button:hover,
 .uk-button:focus,
 .uk-button:active {
-    color: #008848;
+    color: #F84E45;
     background-color: white;
-    border: 1px solid #008848;
+    border: 1px solid #F84E45;
 }
 
 .uk-button svg {
@@ -991,7 +991,7 @@ body.dm-light .pan-loader .shadow {
 }
 
 .page-header__top {
-    background-color: #008848;
+    background-color: #F84E45;
 }
 
 .page-header__top .uk-navbar-item,
@@ -1117,11 +1117,11 @@ body.dm-light .pan-loader .shadow {
 
 
 .bg-green {
-    background-color: #008848 !important;
+    background-color: #F84E45 !important;
 }
 
 .bg-green-op {
-    background-color: rgba(86, 178, 128, 15%);
+    background-color: rgba(248, 78, 69, 15%);
 }
 
 .text-white {
@@ -1129,7 +1129,7 @@ body.dm-light .pan-loader .shadow {
 }
 
 .page-header__bottom {
-    background-color: #008848;
+    background-color: #F84E45;
     color: white;
 }
 
@@ -1413,7 +1413,7 @@ body.dm-light .pan-loader .shadow {
 }
 
 .uk-offcanvas .uk-offcanvas-bar {
-    background-color: #008848;
+    background-color: #F84E45;
     color: #eeeeee;
 }
 
@@ -1667,10 +1667,10 @@ body.dm-light .pan-loader .shadow {
     width: 30px;
     height: 20px;
     border: none;
-    /* border: 1px solid #008848; */
+    /* border: 1px solid #F84E45; */
     border-radius: 2px;
     background-color: transparent;
-    color: #008848;
+    color: #F84E45;
     font-size: 26px;
     font-size: 18px;
     font-weight: 400;
@@ -2241,7 +2241,7 @@ body.dm-light .pan-loader .shadow {
 }
 
 .first-screen-page {
-    color: rgb(23, 104, 26) !important;
+    color: #F84E45 !important;
     text-align: center !important;
     font-family: 'Montserrat';
     font-size: 60px;
@@ -2269,7 +2269,7 @@ body.dm-light .pan-loader .shadow {
     padding: 0 25px;
     border-radius: 2px;
     text-align: left !important;
-    background-color: #008848;
+    background-color: #F84E45;
 }
 
 .first-screen__breadcrumb .uk-breadcrumb {
@@ -2321,7 +2321,7 @@ body.dm-light .pan-loader .shadow {
     display: block;
     position: relative;
     background-attachment: fixed;
-    background-color: rgba(86, 178, 128, 15%);
+    background-color: rgba(248, 78, 69, 15%);
     /* background-image: url(../img/pages/home/bg3.jpg); */
     background-position: center;
     background-size: cover;
@@ -2352,7 +2352,7 @@ body.dm-light .pan-loader .shadow {
 }
 
 .feature-item i {
-    color: #008848;
+    color: #F84E45;
     font-size: 60px;
 }
 
@@ -2395,7 +2395,7 @@ body.dm-light .pan-loader .shadow {
 }
 
 .section-content .contact i {
-    color: #008848;
+    color: #F84E45;
     font-size: 32px;
     margin: 16px 16px 0 0;
 }
@@ -4437,7 +4437,7 @@ body.dm-light .pan-loader .shadow {
     font-weight: 600;
     letter-spacing: normal;
     line-height: 1.47;
-    color: rgb(36, 144, 49) !important;
+    color: rgb(248, 78, 69) !important;
 }
 
 .list-articles-item__date {
@@ -6441,7 +6441,7 @@ body.dm-light .pan-loader .shadow {
 /* Begin: Footer*/
 footer {
     height: 270px;
-    background-color: #008848;
+    background-color: #F84E45;
     margin-top: 84px;
     color: white;
     padding: 28px 112px;

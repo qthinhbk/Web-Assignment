@@ -53,15 +53,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         display: none;
     }
 
-    .signup-form,
-    .login-form {
-        width: 500px;
-        box-shadow: 0 0 30px 5px rgb(0 0 0 / 30%);
-        padding: 12px 36px;
-        border-radius: 4px;
-        background-color: #fff;
-    }
-
     .signup-form label,
     .login-form label {
         color: black;
@@ -69,7 +60,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     .form-logo {
-        /* padding: 0 200px; */
         height: 50px;
         width: 270px;
         margin: 84px auto;
@@ -85,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     .form-style .login-btn {
-        background-color: #56B280;
+        background-color: #F84E45;
         color: white;
         width: 100%;
     }
@@ -106,7 +96,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         background: none;
         border: none;
         text-decoration: underline;
-        color: #56B280;
+        color: #F84E45;
     }
 
 
@@ -124,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     .forgotPass:hover {
-        color: #56B280;
+        color: #F84E45;
     }
 
     .footer-wrapper {
@@ -136,7 +126,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form name="signup" class="form-style" method="POST" action="">
         <div class="form-logo">
             <a href="<?php echo Utils\BASE_URL ?>/user/sign_in">
-                <img src="<?php echo Utils\BASE_URL ?>/public/assets/img/Bach-Hoa-Xanh-Logo.png" alt="logo">
+                <img src="<?php echo Utils\BASE_URL ?>/public/assets/img/Logo.png" alt="logo">
             </a>
         </div>
 

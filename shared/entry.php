@@ -8,32 +8,63 @@ const _JWT_SECRET = 'D5Y&unVTCeLRYimfSYoZhVXa6S5FZU3g6$gPZEFrWyz3883Ziu$StNM2utP
 
 function ensure_logged_in(): void
 {
+    if (!isset($_SESSION)) {
+        session_start();
+    }
     $url = BASE_URL . "/user/sign_in";
     if (!isset($_SESSION["_token"])) {
-        header("Location: $url");
-        exit();
+        echo <<<HTML
+        <script>
+            "use strict";
+            window.location.href = "$url";
+        </script>
+        HTML;
     } else {
-        if (!jwt_verify($_SESSION["_token"])) {
+        if (jwt_verify($_SESSION["_token"]) === false) {
             unset($_SESSION["_token"]);
-            header("Location: $url");
-            exit();
+            echo <<<HTML
+            <script>
+                "use strict";
+                window.location.href = "$url";
+            </script>
+            HTML;
         }
     }
-
 }
 
-function redirect_if_not_being_admin(): void
+function ensure_logged_in_as_admin(): void
 {
-    $url = BASE_URL;
-    if (isset($_SESSION["_token"])) {
-        $claims = jwt_get_claims($_SESSION["_token"]);
-        if ($claims["role"] != "admin") {
-            header("Location: $url");
-            exit();
-        }
+    if (!isset($_SESSION)) {
+        session_start();
+    }
+    $url = BASE_URL . "/user/sign_in";
+    if (!isset($_SESSION["_token"])) {
+        echo <<<HTML
+        <script>
+            "use strict";
+            window.location.href = "$url";
+        </script>
+        HTML;
     } else {
-        header("Location: $url");
-        exit();
+        if (jwt_verify($_SESSION["_token"]) === false) {
+            unset($_SESSION["_token"]);
+            echo <<<HTML
+            <script>
+                "use strict";
+                window.location.href = "$url";
+            </script>
+            HTML;
+        } else {
+            $claims = jwt_get_claims($_SESSION["_token"]);
+            if ($claims["role"] !== "admin") {
+                echo <<<HTML
+                <script>
+                    "use strict";
+                    window.location.href = "$url";
+                </script>
+                HTML;
+            }
+        }
     }
 }
 

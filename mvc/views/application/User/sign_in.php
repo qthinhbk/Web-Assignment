@@ -6,9 +6,11 @@ if (isset($_SESSION["_token"])) {
     }
     $claims = Utils\jwt_get_claims($_SESSION["_token"]);
     if ($claims["role"] == "admin") {
-        header("Location: " . Utils\BASE_URL . "/category/index");
+        $redirect = Utils\BASE_URL . "/category/index";
+        echo "<script>window.location.href = '$redirect';</script>";
     } else {
-        header("Location: " . Utils\BASE_URL . "/");
+        $redirect = Utils\BASE_URL . "/";
+        echo "<script>window.location.href = '$redirect';</script>";
     }
     exit();
 }
@@ -32,12 +34,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     "role" => $user["role"],
                 ]
             );
+        } else {
+            $url = Utils\BASE_URL . "/user/sign_in";
+            echo "<script>alert('Email hoặc mật khẩu không đúng!'); window.location.href = '$url'; </script>";
         }
         if ($user["role"] == "admin") {
             $url = Utils\BASE_URL . "/category/index";
             echo "<script>alert('Đăng nhập thành công!'); window.location.href = '$url';</script>";
             exit();
-        } else {
+        }
+        else {
             $url = Utils\BASE_URL . "/";
             echo "<script>alert('Đăng nhập thành công!'); window.location.href = '$url';</script>";
             exit();
@@ -50,7 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     body {
         height: 100vh;
         width: 100vw;
-        background: center / cover no-repeat url("<?php echo Utils\BASE_URL ?>/public/assets/img/background.png");
         overflow: hidden;
         display: flex;
         justify-content: center;
@@ -79,7 +84,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     .form-style .login-btn {
-        background-color: #56B280;
+        background-color: #F84E45;
         color: white;
         width: 100%;
     }
@@ -105,7 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         background: none;
         border: none;
         text-decoration: underline;
-        color: #56B280;
+        color: #F84E45;
     }
 
 
@@ -123,7 +128,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     .forgotPass:hover {
-        color: #56B280;
+        color: #F84E45;
     }
 </style>
 <!-- Page Content -->
@@ -131,7 +136,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <form method="post" class="form-style" name="login-form">
         <div class="form-logo">
             <a href="<?php echo Utils\BASE_URL ?>/home/index">
-                <img src="<?php echo Utils\BASE_URL ?>/public/assets/img/Bach-Hoa-Xanh-Logo.png" alt="logo">
+                <img src="<?php echo Utils\BASE_URL ?>/public/assets/img/Logo.png" alt="logo">
             </a>
         </div>
         <label for="email"><b>Email</b></label> <br>

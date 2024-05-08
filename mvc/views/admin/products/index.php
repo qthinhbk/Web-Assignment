@@ -1,10 +1,10 @@
 <?php
-Utils\redirect_if_not_being_admin();
+Utils\ensure_logged_in_as_admin();
 ?>
 
 <style>
     #add-product-header {
-        background-color: #008848;
+        background-color: #F84E45;
         text-decoration: none;
         color: white;
         border: 1px solid white;
@@ -75,7 +75,7 @@ Utils\redirect_if_not_being_admin();
                         <?php echo $row["name"] ?>
                     </td>
                     <td>
-                        <?php echo $categories[$row["id"] - 1]["name"] ?>
+                        <?php echo $categories[$row["category_id"] - 1]["name"] ?>
                     </td>
                     <td>
                         <?php echo $row["price"] ?>
@@ -87,12 +87,12 @@ Utils\redirect_if_not_being_admin();
                         <?php echo $row["description"] ?>
                     </td>
                     <td>
-                        <a href="<?php echo Utils\BASE_URL ?>/product/edit/<?php echo $row["product_id"] ?>">
+                        <a href="<?php echo Utils\BASE_URL ?>/product/edit/<?php echo $row["id"] ?>">
                             Edit
                         </a>
                     </td>
                     <td>
-                        <a href="<?php echo Utils\BASE_URL ?>/product/delete/<?php echo $row["product_id"] ?>">
+                        <a href="<?php echo Utils\BASE_URL ?>/product/delete/<?php echo $row["id"] ?>">
                             Delete
                         </a>
                     </td>
