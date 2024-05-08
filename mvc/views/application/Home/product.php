@@ -9,8 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (isset($_SESSION['_token'])) {
         $claims = Utils\jwt_get_claims($_SESSION['_token']);
         $customer = $claims['id'];
-    }
-    else {
+    } else {
         echo '<script>alert("Vui lòng đăng nhập để đánh giá sản phẩm")</script>';
     }
     if ($comment == null) {
@@ -184,47 +183,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             <div class="detail-description">
                                 <h2>Đánh giá sản phẩm</h2>
                                 <ul class="uk-comment-list">
-                                <?php
-                                /**
-                                 * @var CommentModel $comment_model
-                                 */
-                                $comments = $data['comment_model']->get_comments_by_product($productId);
-                                while ($comment = mysqli_fetch_assoc($comments)) {
-                                    $customer = $comment['customer_id'];
+                                    <?php
                                     /**
-                                     * @var UserModel $user_model
+                                     * @var CommentModel $comment_model
                                      */
-                                    $user_model = $data['user_model'];
-                                    $customer_name = $user_model->get_user($customer)->fetch_assoc()['name'];
-                                    ?>
-                                    <li>
-                                        <article class="uk-comment">
-                                            <header class="uk-comment-header">
-                                                <div class="uk-grid-small uk-grid-divider" data-uk-grid>
-                                                    <div class="uk-width-auto@s">
-                                                        <img class="uk-comment-avatar"
-                                                             src="<?php echo Utils\BASE_URL ?>/public/assets/img/pages/home/fp2.png"
-                                                             alt>
-                                                    </div>
-                                                    <div class="uk-width-expand@s">
-                                                        <div class="uk-flex uk-flex-middle uk-margin-small-bottom">
-                                                            <h4 class="uk-comment-title uk-margin-remove">
-                                                                <?php echo $customer_name ?>
-                                                            </h4>
-                                                            <span class="uk-text-meta uk-margin-small-left">
+                                    $comments = $data['comment_model']->get_comments_by_product($productId);
+                                    while ($comment = mysqli_fetch_assoc($comments)) {
+                                        $customer = $comment['customer_id'];
+                                        /**
+                                         * @var UserModel $user_model
+                                         */
+                                        $user_model = $data['user_model'];
+                                        $customer_name = $user_model->get_user($customer)->fetch_assoc()['name'];
+                                        ?>
+                                        <li>
+                                            <article class="uk-comment">
+                                                <header class="uk-comment-header">
+                                                    <div class="uk-grid-small uk-grid-divider" data-uk-grid>
+                                                        <div class="uk-width-auto@s">
+                                                            <img class="uk-comment-avatar"
+                                                                 src="<?php echo Utils\BASE_URL ?>/public/assets/img/pages/home/fp2.png"
+                                                                 alt>
+                                                        </div>
+                                                        <div class="uk-width-expand@s">
+                                                            <div class="uk-flex uk-flex-middle uk-margin-small-bottom">
+                                                                <h4 class="uk-comment-title uk-margin-remove">
+                                                                    <?php echo $customer_name ?>
+                                                                </h4>
+                                                                <span class="uk-text-meta uk-margin-small-left">
                                                                 <?php echo $comment['created_at'] ?>
                                                             </span>
-                                                        </div>
-                                                        <div class="uk-comment-body">
-                                                            <p><?php echo $comment['content'] ?></p>
+                                                            </div>
+                                                            <div class="uk-comment-body">
+                                                                <p><?php echo $comment['content'] ?></p>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                            </header>
-                                        </article>
-                                    </li>
-                                    <?php
-                                }
+                                                </header>
+                                            </article>
+                                        </li>
+                                        <?php
+                                    }
                                     ?>
                                 </ul>
                                 <div class="block-form uk-margin-medium-top">
@@ -313,129 +312,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         localStorage.setItem('productItem', JSON.stringify(productItem));
         alert("Đã thêm vào giỏ hàng");
     }
-
-    function subtractItem(tag) {
-        let productItem = localStorage.getItem('productItem');
-        productItem = JSON.parse(productItem);
-        productItem[tag].quantity--;
-        localStorage.setItem('productItem', JSON.stringify(productItem));
-        if (productItem[tag].quantity === 0) {
-            closeItem(tag);
-        } else renderCart();
-    }
-
-    function addItem(tag) {
-        let productItem = localStorage.getItem('productItem');
-        productItem = JSON.parse(productItem);
-        productItem[tag].quantity++;
-        localStorage.setItem('productItem', JSON.stringify(productItem));
-        renderCart();
-    }
-
-    function closeItem(tag) {
-        let product_name = document.getElementsByClassName('product__' + tag)[0];
-        product_name.remove();
-
-        let productItem = localStorage.getItem('productItem');
-        productItem = JSON.parse(productItem);
-
-        delete productItem[tag];
-
-        localStorage.setItem('productItem', JSON.stringify(productItem));
-
-        let productNumber = localStorage.getItem('productNumber');
-        productNumber = parseInt(productNumber);
-        localStorage.setItem('productNumber', productNumber - 1);
-        if (productNumber - 1 === 0) {
-            console.log('x');
-            renderUI();
-        } else renderCart();
-    }
-
-    function renderCart() {
-        let productItem = localStorage.getItem('productItem');
-        productItem = JSON.parse(productItem);
-        let container = document.getElementsByClassName('page-cart__list')[0];
-        let total = 0;
-
-        Object.values(productItem).map(item => {
-            let myProduct = document.getElementsByClassName('product__' + item.tag)[0];
-            if (myProduct === undefined) {
-                container.innerHTML = `
-                <div class="product product__${item.tag}">
-                    <h5 class="product__title">
-                        <img class="product__img" src="${item.img_src}" alt="${item.name}" />
-                        ${item.name}
-                    </h5>
-                    <h5 class="product__price">${item.price}</h5>
-                    <h5 class="product__quantity">
-                        <span class="counter" style="font-style: normal;">
-                            <span class="minus" onclick="subtractItem('${item.tag}')">-</span>
-                            <input type="text" value="${item.quantity}" />
-                            <span onclick="addItem('${item.tag}')" class="plus">+</span>
-                        </span>
-                    </h5>
-                    <h5 class="product__total">${item.price * item.quantity}
-                        <a onclick="closeItem('${item.tag}')" class="product__close">
-                            <img src="https://img.icons8.com/ios-glyphs/30/ffffff/macos-close.png" alt="close" />
-                        </a>
-                    </h5>
-                </div>
-                `;
-            } else {
-                let childrens = document.getElementsByClassName('product__' + item.tag)[0].childNodes;
-                childrens[2].innerHTML =
-                    `
-                <span class="counter" style="font-style: normal;">
-                    <span class="minus" onclick="subtractItem('${item.tag}')">-</span>
-                    <input type="text" value="${item.quantity}" />
-                    <span onclick="addItem('${item.tag}')" class="plus">+</span>
-                </span>
-                `
-                ;
-                childrens[3].innerHTML =
-                    `
-                ${item.price * item.quantity}
-                <a onclick="closeItem('${item.tag}')" class="product__close">
-                    <img src="https://img.icons8.com/ios-glyphs/30/ffffff/macos-close.png" alt="close" />
-                </a>
-                `;
-            }
-            total += parseFloat(item.price * item.quantity);
-        });
-        const totalEle = document.getElementsByClassName('page-cart__title')[0];
-        totalEle.innerHTML = 'Total:  ' + total;
-    }
-
-    function renderUI() {
-        let productNumber = localStorage.getItem('productNumber');
-        productNumber = parseInt(productNumber);
-
-        if (productNumber > 0) {
-            let btn = document.getElementById('page-cart__control-btn');
-            btn.href = "<?php echo Utils\BASE_URL ?>" + "/home/payment";
-            btn.innerHTML = 'PAYMENT';
-            document.getElementsByClassName('page-cart__img')[0].style.display = 'none';
-            let total = document.getElementsByClassName('page-cart__title')[0];
-            total.style.textAlign = 'right';
-            total.style.marginRight = '50px';
-            document.getElementsByClassName('page-cart__list')[0].style.display = 'block';
-            renderCart();
-        } else {
-            let btn = document.getElementById('page-cart__control-btn');
-            btn.href = '<%= pages_path %>';
-            btn.innerHTML = 'RETURN TO SHOP';
-            document.getElementsByClassName('page-cart__img')[0].style.display = 'block';
-            let total = document.getElementsByClassName('page-cart__title')[0];
-            total.innerHTML = 'Your cart is currently empty.';
-            total.style.textAlign = 'center';
-            total.style.marginRight = '0px';
-            document.getElementsByClassName('page-cart__list')[0].style.display = 'none';
-            const slotName = document.getElementsByClassName('slotname');
-            slotName[0].style.display = 'none';
-            slotName[1].style.display = 'none';
-        }
-    }
-
-    renderUI();
 </script>

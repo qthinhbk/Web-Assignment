@@ -17,4 +17,4 @@
 
 ## Note
 
-- Default password: 123qwerty
+- Default password for all users is `123qwerty`.

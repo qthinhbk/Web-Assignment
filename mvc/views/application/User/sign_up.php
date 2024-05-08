@@ -13,10 +13,23 @@ if (isset($_SESSION["_token"])) {
     exit();
 }
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST['email'];
-    $password = $_POST['password'];
-    $name = $_POST['name'];
-    $phone = $_POST['phone'];
+    $email = $_POST['email'] ?? "";
+    $password = $_POST['password'] ?? "";
+    $name = $_POST['name'] ?? "";
+    $phone = $_POST['phone'] ?? "";
+    // Check email
+    if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        Utils\redirect_with_message(Utils\BASE_URL . "/user/sign_up", "Email không hợp lệ!");
+    }
+    // Check password
+    // Bcrypt limits password to 72 characters
+    if (strlen($password) < 8 || strlen($password) > 72) {
+        Utils\redirect_with_message(Utils\BASE_URL . "/user/sign_up", "Mật khẩu phải từ 8 đến 72 ký tự!");
+    }
+    // Check name
+    if (strlen($name) < 1 || strlen($name) > 255) {
+        Utils\redirect_with_message(Utils\BASE_URL . "/user/sign_up", "Họ và tên không hợp lệ!");
+    }
     $user_model = null;
     if (isset($data)) {
         /**

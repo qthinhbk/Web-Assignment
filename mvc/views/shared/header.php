@@ -66,6 +66,7 @@
                             <?php
                             if (isset($_SESSION["_token"])) {
                                 $redirect_url = Utils\BASE_URL . '/home/account';
+                                $redirect_url_order = Utils\BASE_URL . '/home/order';
                                 $redirect_url_logout = Utils\BASE_URL . '/User/log_out';
                                 echo <<<HTML
                                 <li>
@@ -73,6 +74,10 @@
                                         <span class='text-white' data-uk-icon='user'></span>
                                     </a>
                                 </li>
+                                <li>
+                                    <a href='$redirect_url_order'>
+                                        <span class='text-white' data-uk-icon='album'></span>
+                                    </a>
                                 <li>
                                     <a href='$redirect_url_logout'>
                                         <span class='text-white' data-uk-icon='sign-out'></span>

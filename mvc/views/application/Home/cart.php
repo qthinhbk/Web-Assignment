@@ -1,5 +1,6 @@
 <?php
 Utils\ensure_logged_in();
+$claims = Utils\jwt_get_claims($_SESSION["_token"]);
 ?>
 <style>
     * {
@@ -124,7 +125,7 @@ Utils\ensure_logged_in();
                         </div>
                     </div>
                     <img class="page-cart__img"
-                         src="../../../../public/assets/img/pages/cart/img-empty-cart.png"
+                         src="<?php echo Utils\BASE_URL ?>/public/assets/img/pages/cart/img-empty-cart.png"
                          alt=""
                     >
                     <div class="page-cart__title">
@@ -266,7 +267,7 @@ Utils\ensure_logged_in();
                 let innerHTML = `
                 <div class="product product__${item.tag}">
                     <h5 class="product__title" style="justify-content: left;">
-                        <img class="product__img" src="${item.img_src}" alt="${item.name}">${item.name}
+                        <img class="product__img" src="${item.img_src}">${item.name}
                     </h5>
                     <h5 class="product__price">${item.price}</h5>
                     <h5 class="product__quantity">
@@ -320,16 +321,11 @@ Utils\ensure_logged_in();
         if (text === "Đặt hàng") {
             const address = $('#address').val();
             const note = $('#note').val();
-            const radios = document.getElementsByTagName('input');
-            let checkRadio = false;
-            for (let i = 0; i < radios.length; i++) {
-                if (radios[i].checked) checkRadio = true;
-            }
-            if (address === "" || !checkRadio) {
+            if (address === "" || note === "") {
                 alert("Vui lòng nhập đầy đủ thông tin nhận hàng!");
             } else {
                 if (confirm("Bạn muốn đặt đơn hàng này ?")) {
-                    const userID = <?php echo $_SESSION["id"] ?? null;?>;
+                    const userID = <?php echo $claims["id"] ?>;
                     btn.href = "<?php echo Utils\BASE_URL ?>/home/success/" + `${userID}/${totalPrice}/${address}/${note}`;
                 }
             }
@@ -364,6 +360,5 @@ Utils\ensure_logged_in();
             slotName[1].style.display = 'none';
         }
     }
-
     renderUI();
 </script>

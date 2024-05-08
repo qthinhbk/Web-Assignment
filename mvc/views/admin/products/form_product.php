@@ -91,83 +91,54 @@
             while ($row = mysqli_fetch_assoc($data["product"])) {
                 ?>
                 <form method="POST" action="" enctype="multipart/form-data">
-                    <div class="row form-group">
-                        <label for="id" class="col-sm-2 col-form-label input-label">id</label>
-                        <div class="col-sm-10">
-                            <label for="idInput"></label>
-                            <input
-                                    type="number"
-                                    id="idInput"
-                                    name="id"
-                                    class="form-control"
-                                    placeholder="Please input id"
-                                    value="<?php if (isset($data["id"])) echo $data["id"] ?>"
-                                    required
-                            >
-                        </div>
+                    <div class="mb-3">
+                        <label for="idInput" class="form-label ">ID</label>
+                        <input
+                                type="number"
+                                id="idInput"
+                                name="id"
+                                class="form-control"
+                                value="<?php if (isset($data["id"])) echo $data["id"] ?>"
+                                required
+                        >
                     </div>
-                    <div class="row form-group">
-                        <label for="name" class="col-sm-2 col-form-label input-label">name</label>
-                        <div class="col-sm-10">
-                            <label for="nameInput"></label>
-                            <input type="text"
-                                   id="nameInput"
-                                   name="name"
-                                   class="form-control"
-                                   placeholder="Please input name"
-                                   value="<?php echo $row["name"] ?>"
-                                   required
-                            >
-                        </div>
+                    <div class="mb-3">
+                        <label for="nameInput" class="form-label">Name</label>
+                        <input type="text"
+                               id="nameInput"
+                               name="name"
+                               class="form-control"
+                               value="<?php echo $row["name"] ?>"
+                               required
+                        >
                     </div>
-
-                    <div class="row form-group">
-                        <label for="name" class="col-sm-2 col-form-label input-label">quantity</label>
-                        <div class="col-sm-10">
-                            <label for="qtyInput"></label>
-                            <input type="text" id="qtyInput" name="qty" class="form-control"
-                                   placeholder="Please input quantity"
-                                   value="<?php echo $row["qty"] ?>" required>
-                        </div>
+                    <div class="mb-3">
+                        <label for="qtyInput" class="form-label">Quantity</label>
+                        <input type="text" id="qtyInput" name="qty" class="form-control"
+                               value="<?php echo $row["qty"] ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="priceInput" class="form-label">Price</label>
+                        <input type="text" id="priceInput" name="price" class="form-control"
+                               value="<?php echo $row["price"] ?>" required>
+                    </div>
+                    <div class="mb-3">
+                        <label for="categoryInput" class="form-label">Category ID</label>
+                        <input type="text" id="categoryInput" name="category_id" class="form-control"
+                               value="<?php echo $row["category_id"] ?>"
+                               required>
                     </div>
 
-                    <div class="row form-group">
-                        <label for="name" class="col-sm-2 col-form-label input-label">price</label>
-                        <div class="col-sm-10">
-                            <label for="priceInput"></label>
-                            <input type="text" id="priceInput" name="price" class="form-control"
-                                   placeholder="Please input price"
-                                   value="<?php echo $row["price"] ?>" required>
-                        </div>
+                    <div class="mb-3">
+                        <label for="descInput" class="form-label">Description</label>
+                        <input type="text" id="descInput" name="description" class="form-control"
+                               value="<?php echo $row["description"] ?>"
+                               required>
                     </div>
 
-                    <div class="row form-group">
-                        <label for="name" class="col-sm-2 col-form-label input-label">category id</label>
-                        <div class="col-sm-10">
-                            <label for="categoryInput"></label>
-                            <input type="text" id="categoryInput" name="category_id" class="form-control"
-                                   placeholder="Please input category id"
-                                   value="<?php echo $row["category_id"] ?>"
-                                   required>
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <label for="name" class="col-sm-2 col-form-label input-label">intro</label>
-                        <div class="col-sm-10">
-                            <label for="descInput"></label>
-                            <input type="text" id="descInput" name="description" class="form-control"
-                                   placeholder="Please input description"
-                                   value="<?php echo $row["description"] ?>"
-                                   required>
-                        </div>
-                    </div>
-
-                    <div class="row form-group">
-                        <label for="fileUpload" class="col-sm-2 col-form-label input-label">Filename:</label>
-                        <div class="col-sm-10">
-                            <input class="form-control" id="fileUpload" type="file" name="img_file">
-                        </div>
+                    <div class="mb-3">
+                        <label for="fileUpload" class="form-label">Filename:</label>
+                        <input class="form-control" id="fileUpload" type="file" name="img_file">
                     </div>
 
                     <div class="d-flex justify-content-end">
@@ -179,69 +150,40 @@
         } else {
             ?>
             <form method="POST" action="" enctype="multipart/form-data">
-                <div class="row form-group">
-                    <label for="id" class="col-sm-2 col-form-label input-label">id</label>
-                    <div class="col-sm-10">
-                        <label for="idInput"></label>
-                        <input type="number" id="idInput" name="id" class="form-control"
-                               placeholder="Please input id"
-                               required>
-                    </div>
+                <div class="mb-3">
+                    <label for="idInput" class="form-label">ID</label>
+                    <input type="number" id="idInput" name="id" class="form-control"
+                           required>
                 </div>
-                <div class="row form-group">
-                    <label for="nameInput" class="col-sm-2 col-form-label input-label">name</label>
-                    <div class="col-sm-10">
-                        <input type="text" id="nameInput" name="name" class="form-control"
-                               placeholder="Please input name"
-                               required>
-                    </div>
+                <div class="mb-3">
+                    <label for="nameInput" class="form-label">Name</label>
+                    <input type="text" id="nameInput" name="name" class="form-control"
+                           required>
                 </div>
-
-                <div class="row form-group">
-                    <label for="name" class="col-sm-2 col-form-label input-label">quantity</label>
-                    <div class="col-sm-10">
-                        <label for="qtyInput"></label>
-                        <input type="text" id="qtyInput" name="qty" class="form-control"
-                               placeholder="Please input quantity"
-                               required>
-                    </div>
+                <div class="mb-3">
+                    <label for="qtyInput" class="form-label">Quantity</label>
+                    <input type="text" id="qtyInput" name="qty" class="form-control"
+                           required>
                 </div>
-
-                <div class="row form-group">
-                    <label for="name" class="col-sm-2 col-form-label input-label">price</label>
-                    <div class="col-sm-10">
-                        <label for="priceInput"></label>
-                        <input type="text" id="priceInput" name="price" class="form-control"
-                               placeholder="Please input price"
-                               required>
-                    </div>
+                <div class="mb-3">
+                    <label for="priceInput" class="form-label">Price</label>
+                    <input type="text" id="priceInput" name="price" class="form-control"
+                           required>
+                </div>
+                <div class="mb-3">
+                    <label for="categoryInput" class="form-label">Category ID</label>
+                    <input type="text" id="categoryInput" name="category_id" class="form-control"
+                           required>
+                </div>
+                <div class="mb-3">
+                    <label for="descInput" class="form-label">Description</label>
+                    <input type="text" id="descInput" name="description" class="form-control"
+                           required>
                 </div>
 
-                <div class="row form-group">
-                    <label for="name" class="col-sm-2 col-form-label input-label">category id</label>
-                    <div class="col-sm-10">
-                        <label for="categoryInput"></label>
-                        <input type="text" id="categoryInput" name="category_id" class="form-control"
-                               placeholder="Please input category id"
-                               required>
-                    </div>
-                </div>
-
-                <div class="row form-group">
-                    <label for="name" class="col-sm-2 col-form-label input-label">intro</label>
-                    <div class="col-sm-10">
-                        <label for="descInput"></label>
-                        <input type="text" id="descInput" name="description" class="form-control"
-                               placeholder="Please input description"
-                               required>
-                    </div>
-                </div>
-
-                <div class="row form-group">
-                    <label for="file" class="col-sm-2 col-form-label input-label">Filename:</label>
-                    <div class="col-sm-10">
-                        <input class="form-control" type="file" name="img_file">
-                    </div>
+                <div class="mb-3">
+                    <label for="fileUpload" class="form-label">Filename:</label>
+                    <input class="form-control" id="fileUpload" type="file" name="img_file">
                 </div>
 
                 <div class="d-flex justify-content-end">

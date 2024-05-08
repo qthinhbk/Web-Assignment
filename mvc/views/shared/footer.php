@@ -1,6 +1,5 @@
 <footer>
-    <!-- <hr> -->
-    <div class="footer-logo">
+    <div class="footer-logo mt-3">
         <img src="<?php echo Utils\BASE_URL ?>/public/assets/img/Logo.png" alt="logo">
     </div>
     <p style="margin-top:50px">Theo dõi chúng tôi qua</p>
@@ -11,5 +10,4 @@
         <a href="https://www.pinterest.com/"><i class="bi bi-pinterest"></i></a>
         <a href="https://www.youtube.com/"><i class="bi bi-youtube"></i></a>
     </div>
-
 </footer>

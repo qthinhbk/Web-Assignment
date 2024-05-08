@@ -25,39 +25,33 @@ Utils\ensure_logged_in_as_admin();
         }
         ?>
         <form method="POST" action="">
-            <div class="row form-group">
-                <label for="id" class="col-sm-2 col-form-label input-label">ID</label>
-                <div class="col-sm-10">
-                    <label for="idInput"></label>
-                    <input type="number"
-                           id="idInput"
-                           name="id"
-                           class="form-control"
-                           placeholder="Please input id"
-                           value="<?php
-                           if (isset($data["id"])) {
-                               echo $data["id"];
-                           }
-                           ?>"
-                           required
-                    />
-                </div>
+            <div class="mb-3">
+                <label for="idInput" class="form-label">ID</label>
+                <input type="number"
+                       id="idInput"
+                       name="id"
+                       class="form-control"
+                       placeholder="Please input id"
+                       value="<?php
+                       if (isset($data["id"])) {
+                           echo $data["id"];
+                       }
+                       ?>"
+                       required
+                />
             </div>
-            <div class="row form-group">
-                <label for="name" class="col-sm-2 col-form-label input-label">Name</label>
-                <div class="col-sm-10">
-                    <label for="nameInput"></label>
-                    <input type="text"
-                           id="nameInput"
-                           name="name"
-                           class="form-control"
-                           placeholder="Please input name"
-                           value="<?php
-                           if (isset($data["category"]))
-                               echo mysqli_fetch_assoc($data["category"])["name"]
-                           ?>"
-                           required>
-                </div>
+            <div class="mb-3">
+                <label for="nameInput" class="form-label">Name</label>
+                <input type="text"
+                       id="nameInput"
+                       name="name"
+                       class="form-control"
+                       placeholder="Please input name"
+                       value="<?php
+                       if (isset($data["category"]))
+                           echo mysqli_fetch_assoc($data["category"])["name"]
+                       ?>"
+                       required>
             </div>
 
             <div class="d-flex justify-content-end">

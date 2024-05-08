@@ -5,19 +5,6 @@ Utils\ensure_logged_in_as_admin();
 <div class="page-header">
     <div class="row align-items-center mb-3">
         <div class="col-sm mb-2 mb-sm-0">
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb breadcrumb-no-gutter">
-                    <li class="breadcrumb-item">
-                        <a class="breadcrumb-link"
-                           href="<?php echo Utils\BASE_URL ?>/Comment/index">
-                        </a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                        Comments
-                    </li>
-                </ol>
-            </nav>
-
             <h1 class="page-header-title">
                 Comments<span class="badge badge-soft-dark ml-2"><?php
                     if (isset($data)) {

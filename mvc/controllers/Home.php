@@ -81,15 +81,13 @@ class Home extends Controller
         ]);
     }
 
-    function payment($price): void
+    function order(): void
     {
-        $order = $this->model_query("OrderModel");
         $this->view_render("layouts/application", [
-            "page" => "application/home/payment",
+            "page" => "application/home/order",
             "header" => "shared/header",
             "footer" => "shared/footer",
-            "price" => $price,
-            "order_model" => $order
+            "order_model" => $this->model_query("OrderModel")
         ]);
     }
 

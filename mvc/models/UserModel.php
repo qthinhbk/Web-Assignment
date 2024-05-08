@@ -36,15 +36,15 @@ class UserModel extends Database
         return $stmt->get_result();
     }
 
-    public function add_user(array $record): bool {
-        $raw_sql = "INSERT INTO users (id, name, email, phone, password_hash) VALUES (?, ?, ?, ?, ?)";
-        $id = time() % 100_000_000;
+    public function add_user(array $record): bool
+    {
+        $raw_sql = "INSERT INTO users (name, email, phone, password_hash) VALUES (?, ?, ?, ?)";
         $stmt = $this->con->prepare($raw_sql);
         $name = $record["name"];
         $email = $record["email"];
         $phone = $record["phone"];
         $password_hash = password_hash($record["password"], PASSWORD_BCRYPT);
-        $stmt->bind_param("issss", $id, $name, $email, $phone, $password_hash);
+        $stmt->bind_param("ssss", $name, $email, $phone, $password_hash);
         $stmt->execute();
         return $stmt->affected_rows > 0;
     }
